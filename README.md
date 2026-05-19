@@ -37,3 +37,10 @@ apt-get install nano
 nano /var/www/http/mod_perl.pl
 ```
 modify: Apache2::SizeLimit->set_max_unshared_size(300_000);
+
+Also create 'template/en/custom' folder and create files
+
+'index.html.tmpl', 'global/footer.html.tmpl'  'global/variables.none.tmpl'
+
+at the end run to cleanup the cache and apply the new configuration.
+'./checksetup.pl'
