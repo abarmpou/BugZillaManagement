@@ -34,6 +34,7 @@ Go into container: docker exec -it bugzilla_bugzilla5.web_1 bash
 ```
 apt-get install tzdata
 apt-get install nano
+apt-get install curl
 nano /var/www/http/mod_perl.pl
 ```
 modify: Apache2::SizeLimit->set_max_unshared_size(300_000);
