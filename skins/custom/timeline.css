@@ -1,0 +1,103 @@
+.bz_timeline {
+    position: relative;
+    margin: 20px 0;
+    padding-left: 30px;
+}
+
+.bz_timeline:before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #d0d7de;
+}
+
+.bz_timeline_item {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.bz_timeline_marker {
+    position: absolute;
+    left: -24px;
+    top: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #57606a;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #d0d7de;
+}
+
+.bz_timeline_comment .bz_timeline_marker {
+    background: #2da44e;
+}
+
+.bz_timeline_change .bz_timeline_marker {
+    background: #0969da;
+}
+
+.bz_timeline_content {
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.bz_timeline_header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.bz_timeline_user {
+    font-weight: 600;
+    color: #24292f;
+}
+
+.bz_timeline_action {
+    color: #57606a;
+}
+
+.bz_timeline_time {
+    margin-left: auto;
+    color: #656d76;
+    font-size: 12px;
+}
+
+.bz_comment_body {
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.bz_change_body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.bz_old_value {
+    background: #ffebe9;
+    color: #cf222e;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.bz_new_value {
+    background: #dafbe1;
+    color: #1a7f37;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.bz_arrow {
+    color: #57606a;
+}
