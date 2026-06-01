@@ -114,6 +114,37 @@ $vars->{'marks'} = \%marks;
 my @bugids = map { $_->bug_id } grep { !$_->error } @bugs;
 $vars->{'bugids'} = join(", ", @bugids);
 
+
+foreach my $bug (@bugs) {
+
+    foreach my $field (qw(creation_ts delta_ts)) {
+
+        my $ts = $bug->{$field};
+
+        my ($y, $m, $d, $H, $M, $S)
+            = $ts =~ /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+
+        next unless defined $y;
+
+        my $dt = DateTime->new(
+            year      => $y,
+            month     => $m,
+            day       => $d,
+            hour      => $H,
+            minute    => $M,
+            second    => $S,
+            time_zone => 'UTC',
+        );
+
+        $dt->set_time_zone(
+            Bugzilla->user->settings->{timezone}->{value}
+        );
+
+        $bug->{$field} = $dt;
+    }
+}
+
+
 foreach my $bug (@bugs) {
 
     my ($ops, $incomplete)
@@ -126,14 +157,35 @@ foreach my $bug (@bugs) {
     # -------------------------
     foreach my $comment (@{ $bug->comments }) {
 
+my ($y, $m, $d, $H, $M, $S)
+    = $comment->creation_ts =~
+      /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+
+my $dt = DateTime->new(
+    year      => $y,
+    month     => $m,
+    day       => $d,
+    hour      => $H,
+    minute    => $M,
+    second    => $S,
+    time_zone => 'UTC',
+);
+
+
+$dt->set_time_zone(Bugzilla->user->settings->{timezone}->{value});
+
+
         push @timeline, {
             type    => 'comment',
-            ts      => $comment->creation_ts,
+            ts      => $dt,
             author     => $comment->author,
             comment => $comment,
 	    epoch => ts_key($comment->creation_ts),
         };
+
+
     }
+
 
     # -------------------------
     # 2. Add history changes
@@ -142,9 +194,26 @@ foreach my $bug (@bugs) {
 
         foreach my $ch (@{ $op->{changes} }) {
 
+my ($y, $m, $d, $H, $M, $S)
+    = $op->{when} =~
+      /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+
+my $dt = DateTime->new(
+    year      => $y,
+    month     => $m,
+    day       => $d,
+    hour      => $H,
+    minute    => $M,
+    second    => $S,
+    time_zone => 'UTC',
+);
+
+$dt->set_time_zone(Bugzilla->user->settings->{timezone}->{value});
+
+
             push @timeline, {
                 type   => 'change',
-                ts     => $op->{when},
+                ts     => $dt,
                 author    => Bugzilla::User->new({ name => $op->{who} }),
                 op     => $op,
                 change => $ch,
@@ -163,7 +232,7 @@ foreach my $bug (@bugs) {
     # attach to bug
     $bug->{timeline} = \@timeline;
 }
-      
+
 
 # Work out which fields we are displaying (currently XML only.)
 # If no explicit list is defined, we show all fields. We then exclude any
