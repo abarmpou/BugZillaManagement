@@ -252,21 +252,12 @@
     [%###############%]    
     [%#  Component  #%]
     [%###############%]
-    <tr>
-      [% INCLUDE bug/field.html.tmpl
-          bug = bug, field = bug_fields.component, value = bug.component
-          override_legal_values = bug.choices.component
-          desc_url = "describecomponents.cgi?product=$bug.product"
-          editable = bug.check_can_change_field('component', 0, 1)
-      %]
-    </tr>
-    <tr>
-      [% INCLUDE "bug/field-label.html.tmpl"
-          field = bug_fields.version
-          editable = bug.check_can_change_field('version', 0, 1) %]
-
-      [% PROCESS select selname => "version" %]
-    </tr>
+<tr>
+<th class="field_label">Current component:</th><td>
+ [% bug.component FILTER html %]
+</td>
+</tr>
+    
     [%############%]    
     [%# PLATFORM #%]
     [%############%]    
@@ -703,7 +694,7 @@
       Reported:
     </th>
     <td>
-     [% bug.creation_ts FILTER time("%Y-%m-%d %H:%M %Z") %] by [% INCLUDE global/user.html.tmpl who = bug.reporter %]
+     [% bug.creation_ts FILTER time %] by [% INCLUDE global/user.html.tmpl who = bug.reporter %]
     </td>
   </tr>
   
@@ -712,7 +703,7 @@
       Modified:
     </th>
     <td>
-      [% bug.delta_ts FILTER time("%Y-%m-%d %H:%M %Z") %]
+      [% bug.delta_ts FILTER time %]
       (<a href="show_activity.cgi?id=[% bug.bug_id %]">[%# terms.Bug %]History</a>)
     </td>
   
@@ -1140,6 +1131,24 @@
         [% Hook.process("after_comment_commit_button", 'bug/edit.html.tmpl') %]
 
         <table id="bug_status_bottom" class="status">
+<tr>
+<th class="field_label">Details:</th>
+<td>[% bug.component_obj.description %]</td>
+</tr>
+<tr>
+<th class="field_label">Instructions:</th>
+<td>Provide sufficient information. Set the next component and/or change the status.
+</td>
+</tr>
+
+ <tr>
+      [% INCLUDE bug/field.html.tmpl
+          bug = bug, field = bug_fields.component, value = bug.component
+          override_legal_values = bug.choices.component
+          desc_url = "describecomponents.cgi?product=$bug.product"
+          editable = bug.check_can_change_field('component', 0, 1)
+      %]
+    </tr>
           <tr>
             <th class="field_label">
               <a href="page.cgi?id=fields.html#bug_status">Status</a>:
