@@ -140,7 +140,7 @@ foreach my $bug (@bugs) {
             Bugzilla->user->settings->{timezone}->{value}
         );
 
-        $bug->{$field} = $dt;
+        $bug->{"${field}_local"} = $dt;
     }
 }
 

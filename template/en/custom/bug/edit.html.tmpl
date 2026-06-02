@@ -694,7 +694,7 @@
       Reported:
     </th>
     <td>
-     [% bug.creation_ts FILTER time %] by [% INCLUDE global/user.html.tmpl who = bug.reporter %]
+     [% bug.creation_ts_local FILTER time %] by [% INCLUDE global/user.html.tmpl who = bug.reporter %]
     </td>
   </tr>
   
@@ -703,7 +703,7 @@
       Modified:
     </th>
     <td>
-      [% bug.delta_ts FILTER time %]
+      [% bug.delta_ts_local FILTER time %]
       (<a href="show_activity.cgi?id=[% bug.bug_id %]">[%# terms.Bug %]History</a>)
     </td>
   
