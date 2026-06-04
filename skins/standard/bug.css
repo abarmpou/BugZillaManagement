@@ -175,6 +175,7 @@ table#flags {
 
 #bz_big_form_parts td {
     vertical-align: top;
+    padding: 0px 5px;
 }
 
 .bz_group_visibility_section {

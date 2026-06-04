@@ -1133,12 +1133,17 @@
         <table id="bug_status_bottom" class="status" style="border:5px solid #0f6cae;border-radius:10px;">
 <tr style="background:#0f6cae;color:#fff;"><th>STEP 1</th><td><b> WRITE COMMENTS</b></td></tr>
 <tr>
+<th class="field_label">Component:</th><td>
+ [% bug.component FILTER html %]
+</td>
+</tr>
+<tr>
 <th class="field_label">Details:</th>
 <td>[% bug.component_obj.description %]</td>
 </tr>
 <tr>
 <th class="field_label">Instructions:</th>
-<td>Provide sufficient information. Then set the next component and/or change status below.
+<td>Provide sufficient information in the comment box above. Then set the next component and/or change status below.
 </td>
 </tr>
 <tr style="background:#0f6cae;color:#fff;"><th>STEP 2</th><td><b> SET NEXT COMPONENT/STATUS</b></td></tr>

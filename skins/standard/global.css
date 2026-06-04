@@ -51,6 +51,7 @@
     #bugzilla-body th {
         font-weight: bold;
         vertical-align: top;
+	padding: 0px 5px;
     }
 
 /* global (end) */
